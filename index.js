@@ -11,10 +11,11 @@
 // }
 //
 // not yet sure wether application-id-hex (appID) is really changing so I put it here as default.
-
 'use strict';
 
 var evohome = require('evohome');
+var debug = require('debug')('node-totalcomfortconnect');
+
 var Service, Characteristic;
 
 module.exports = function(homebridge) {
@@ -22,7 +23,7 @@ module.exports = function(homebridge) {
   Characteristic = homebridge.hap.Characteristic;
   
   homebridge.registerPlatform("homebridge-evohome", "Evohome", EvohomePlatform);
-}
+};
 
 function EvohomePlatform(log, config){
 
@@ -43,10 +44,11 @@ EvohomePlatform.prototype = {
 
 		evohome.login(that.username, that.password, that.appId).then(function(session) {
 			that.log("Logged into Evohome!");
-
+			debug('Session details: %j', session);
+			
 			session.getLocations().then(function(locations){
 				that.log('You have', locations.length, 'location(s). Only the first one will be used!');
-				that.log('You have', locations[0].devices.length, 'device(s).')
+				that.log('You have', locations[0].devices.length, 'device(s).');
 
 				// iterate through the devices
 				for (var deviceId in locations[0].devices) {
