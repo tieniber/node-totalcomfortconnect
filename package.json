@@ -11,6 +11,6 @@
     "homebridge": ">=0.2.0"
   },
   "dependencies": {
-    "evohome": ">=0.0.3"
+    "tieniber/node-evohome"
   }
 }
